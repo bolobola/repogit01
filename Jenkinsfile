@@ -1,19 +1,15 @@
 pipeline {
-    agent { docker { image 'maven:3.3.3' } }
+    agent any
     stages {
-        stage('build') {
+        stage('Example') {
             steps {
-                sh 'mvn --version'
+                echo 'Hello World'
             }
         }
     }
-}
-/* Requires the Docker Pipeline plugin */
-node('docker') {
-    checkout scm
-    stage('Build') {
-        docker.image('maven:3.3.3').inside {
-            sh 'mvn --version'
+    post { 
+        always { 
+            echo 'I will always say Hello again!'
         }
     }
 }
