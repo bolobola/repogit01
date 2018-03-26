@@ -1,15 +1,20 @@
 pipeline {
     agent any
+
     stages {
-        stage('Example') {
+        stage('test') {
             steps {
-                echo 'Hello World'
+
+                echo 'Building anotherJob and getting the log'
+
+                script {
+                    def bRun = build 'anotherJob' 
+                    echo 'last 100 lines of BuildB'
+                    for(String line : bRun.getRawBuild().getLog(100)){
+                        echo line
+                    }
+                }
             }
-        }
-    }
-    post { 
-        always { 
-            echo 'I will always say Hello again!'
         }
     }
 }
