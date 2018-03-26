@@ -1,20 +1,9 @@
 pipeline {
-    agent any
-
+    agent { docker { image 'python:3.5.1' } }
     stages {
-        stage('test') {
+        stage('build') {
             steps {
-
-                echo 'Building anotherJob and getting the log'
-
-                script {
-                    echo "In the script"
-                    def bRun = build 'anotherJob' 
-                    echo 'last 100 lines of BuildB'
-                    for(String line : bRun.getRawBuild().getLog(100)){
-                        echo line
-                    }
-                }
+                sh 'python --version'
             }
         }
     }
